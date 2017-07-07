@@ -2,7 +2,7 @@
 
 Based on the work of [mkroutikov](https://github.com/mkroutikov)'s version of [tf-lstm-char-cnn](https://github.com/mkroutikov/tf-lstm-char-cnn).
 
-Original version is Yoon Kim's [Torch7 code](https://github.com/yoonkim/lstm-char-cnn). The paper is available at [arXiv](https://arxiv.org/abs/1508.06615).
+Original version is [Yoon Kim](https://github.com/yoonkim)'s [Torch7 code](https://github.com/yoonkim/lstm-char-cnn). The paper is available at [arXiv](https://arxiv.org/abs/1508.06615).
 
 See also similar project of [Taehoon Kim](https://github.com/carpedm20/lstm-char-cnn-tensorflow) that failed to reproduce Yoon Kim's results and might be abandoned by the author. Many pieces of [mkroutikov](https://github.com/mkroutikov)'s version of [tf-lstm-char-cnn](https://github.com/mkroutikov/tf-lstm-char-cnn) are borrowed from it.
 
