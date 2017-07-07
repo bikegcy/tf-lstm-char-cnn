@@ -1,6 +1,6 @@
 # tf-lstm-char-cnn
 
-Based on the work of [mkroutikov](https://github.com/mkroutikov)'s version of [tf-lstm-char-cnn](https://github.com/mkroutikov/tf-lstm-char-cnn).
+This project is based on the work of [mkroutikov](https://github.com/mkroutikov)'s version of [tf-lstm-char-cnn](https://github.com/mkroutikov/tf-lstm-char-cnn).
 
 Original version is [Yoon Kim](https://github.com/yoonkim)'s [Torch7 code](https://github.com/yoonkim/lstm-char-cnn). The paper is available at [arXiv](https://arxiv.org/abs/1508.06615).
 
