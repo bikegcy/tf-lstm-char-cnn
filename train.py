@@ -43,6 +43,8 @@ flags.DEFINE_integer('seed',           3435, 'random number generator seed')
 flags.DEFINE_integer('print_every',    5,    'how often to print current loss')
 flags.DEFINE_string ('EOS',            '+',  '<EOS> symbol. should be a single unused character (like +) for PTB and blank for others')
 
+# to add GPU selection later
+
 FLAGS = flags.FLAGS
 
 
