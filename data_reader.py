@@ -140,6 +140,7 @@ class DataReader:
 
         x_batches = np.transpose(x_batches, axes=(1, 0, 2, 3))
         y_batches = np.transpose(y_batches, axes=(1, 0, 2))
+        # what is the point of reshaping then transposing in this way?
 
         self._x_batches = list(x_batches)
         self._y_batches = list(y_batches)
