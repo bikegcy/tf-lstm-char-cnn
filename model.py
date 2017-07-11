@@ -78,7 +78,6 @@ def tdnn(input_, kernels, kernel_features, scope='TDNN'):
     :input:           input float tensor of shape [(batch_size*num_unroll_steps) x max_word_length x embed_size]
     :kernels:         array of kernel sizes
     :kernel_features: array of kernel feature sizes (parallel to kernels)
-    :CharCNN
     '''
     assert len(kernels) == len(kernel_features), 'Kernel and Features must have the same size'
 
