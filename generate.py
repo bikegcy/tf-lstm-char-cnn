@@ -99,9 +99,12 @@ def main(_):
             if word == '|':  # EOS
                 print('<unk>', end=' ')
             elif word == '+':
-                print('\n')
+                #print(word)
+                a = 1
+                #print('\n')
             else:
                 print(word, end=' ')
+                #print(word, end=' ')
 
             char_input = np.zeros((1, 1, max_word_length))
             for i,c in enumerate('{' + word + '}'):
