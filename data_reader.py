@@ -70,22 +70,27 @@ def load_data(data_dir, max_word_length, eos='+'):
         with codecs.open(os.path.join(data_dir, fname + '.txt'), 'r', 'utf-8') as f:
             for line in f:
                 line = line.strip()
+                # get rid of white space at head and tail
                 line = line.replace('}', '').replace('{', '').replace('|', '')
+                # remove '{', '}' and '|' in original data because we will use them
                 line = line.replace('<unk>', ' | ')
                 if eos:
                     line = line.replace(eos, '')
+                    # remove 'eos'
 
                 for word in line.split():
+                # seperate the words with whitespace
                     if len(word) > max_word_length - 2:  # space for 'start' and 'end' chars
                         word = word[:max_word_length-2]
-
+                    # if it's longer than max, only get the legal part
                     word_tokens[fname].append(word_vocab.feed(word))
+                    # word_token doesn't get word but index of the word
 
                     char_array = [char_vocab.feed(c) for c in '{' + word + '}']
                     char_tokens[fname].append(char_array)
 
                     actual_max_word_length = max(actual_max_word_length, len(char_array))
-
+                # if it's eos then add eos as well
                 if eos:
                     word_tokens[fname].append(word_vocab.feed(eos))
 
@@ -102,15 +107,26 @@ def load_data(data_dir, max_word_length, eos='+'):
     print('number of tokens in valid:', len(word_tokens['valid']))
     print('number of tokens in test:', len(word_tokens['test']))
 
+    ### test
+
+    #print(char_tokens.items())
+    #print(word_tokens.items())
+    print(word_vocab._token2index)
+    print(char_vocab._token2index)
+
+    ### test
+
     # now we know the sizes, create tensors
     word_tensors = {}
     char_tensors = {}
     for fname in ('train', 'valid', 'test'):
         assert len(char_tokens[fname]) == len(word_tokens[fname])
+        # because chae_token is a different representation of word_token
 
         word_tensors[fname] = np.array(word_tokens[fname], dtype=np.int32)
         char_tensors[fname] = np.zeros([len(char_tokens[fname]), actual_max_word_length], dtype=np.int32)
-
+        # len(char_token[fname] is the number of words/tokens)
+        # get the frame of char_tensor and then initialize(zero-padding)
         for i, char_array in enumerate(char_tokens[fname]):
             char_tensors[fname] [i,:len(char_array)] = char_array
 
@@ -140,7 +156,7 @@ class DataReader:
 
         x_batches = np.transpose(x_batches, axes=(1, 0, 2, 3))
         y_batches = np.transpose(y_batches, axes=(1, 0, 2))
-        # what is the point of reshaping then transposing in this way?
+
 
         self._x_batches = list(x_batches)
         self._y_batches = list(y_batches)
@@ -158,6 +174,7 @@ class DataReader:
 if __name__ == '__main__':
 
     _, _, wt, ct, _ = load_data('data', 65)
+    # wt means word_tensor
     print(wt.keys())
 
     count = 0

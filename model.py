@@ -120,6 +120,7 @@ def inference_graph(char_vocab_size, word_vocab_size,
                     kernel_features = [50, 100, 150, 200, 200, 200, 200],
                     num_unroll_steps=35,
                     dropout=0.0):
+    # type: (object, object, object, object, object, object, object, object, object, object, object, object) -> object
 
     assert len(kernels) == len(kernel_features), 'Kernel and Features must have the same size'
 

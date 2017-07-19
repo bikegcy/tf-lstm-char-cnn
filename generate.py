@@ -17,7 +17,7 @@ flags = tf.flags
 flags.DEFINE_string('load_model',   None,    'filename of the model to load')
 # we need data only to compute vocabulary
 flags.DEFINE_string('data_dir',   'data',    'data directory')
-flags.DEFINE_integer('num_samples', 300, 'how many words to generate')
+flags.DEFINE_integer('num_samples', 50, 'how many words to generate')
 flags.DEFINE_float('temperature', 1.0, 'sampling temperature')
 
 # model params
@@ -90,10 +90,15 @@ def main(_):
         rnn_state = session.run(m.initial_rnn_state)
         for i in range(FLAGS.num_samples):
             logits = logits / FLAGS.temperature
+            print("shape of logits :", logits.shape)
+            #print(logits)
             prob = np.exp(logits)
             prob /= np.sum(prob)
             prob = prob.ravel()
+            # generate a 1-d array
             ix = np.random.choice(range(len(prob)), p=prob)
+            # generate a sample from 1-d array, according to prob
+            # ix is the index of the most probable word
 
             word = word_vocab.token(ix)
             if word == '|':  # EOS
@@ -104,16 +109,21 @@ def main(_):
                 #print('\n')
             else:
                 print(word, end=' ')
-                #print(word, end=' ')
+                print("\nshape of prob: ", prob.sshape)
+                #print("prob: ", prob)
+                #print("ix:", ix)
 
             char_input = np.zeros((1, 1, max_word_length))
             for i,c in enumerate('{' + word + '}'):
+                # c = c.encode('utf-8')
                 char_input[0,0,i] = char_vocab[c]
 
             logits, rnn_state = session.run([m.logits, m.final_rnn_state],
                                          {m.input: char_input,
                                           m.initial_rnn_state: rnn_state})
             logits = np.array(logits)
+            print("\nshape of char_input: ", char_input.shape)
+            # print("\nchar_input: ", char_input)
 
 
 if __name__ == "__main__":
